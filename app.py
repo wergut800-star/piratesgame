@@ -172,7 +172,8 @@ def port():
     player = get_player()
 
     if player is None:
-        return redirect("/")
+    session.pop("nickname", None)
+    return redirect("/register")
 
     return render_template(
         "port.html",

@@ -12,7 +12,11 @@
 
 <div class="captain-card">
 
-    <img src="{{ url_for('static', filename='images/' + ('avatar_female.png' if player.gender == 'female' else 'avatar.png')) }}" class="avatar">
+    {% if player.gender == "female" %}
+<img src="{{ url_for('static', filename='images/avatar_female.png') }}" class="avatar">
+{% else %}
+<img src="{{ url_for('static', filename='images/avatar.png') }}" class="avatar">
+{% endif %}
 
     <div class="captain-name">
         <strong>{{ player.nickname }}</strong>

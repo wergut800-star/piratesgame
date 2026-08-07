@@ -12,32 +12,57 @@ online_locations = {}
 
 # ---------- База данных ----------
 
+DB = "pirates.db"
+
 
 def init_db():
     conn = sqlite3.connect(DB)
     cur = conn.cursor()
 
+    # Создаём таблицу, если её ещё нет
     cur.execute("""
-    CREATE TABLE IF NOT EXISTS players(
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        nickname TEXT UNIQUE,
-        password TEXT,
-        gender TEXT DEFAULT 'male',
-        hp INTEGER DEFAULT 1000,
-        xp INTEGER DEFAULT 0,
-        gold INTEGER DEFAULT 100,
-        piastres INTEGER DEFAULT 10,
-        pearls INTEGER DEFAULT 0,
-        level INTEGER DEFAULT 1
-    )
+        CREATE TABLE IF NOT EXISTS players (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            nickname TEXT UNIQUE,
+            password TEXT,
+            gender TEXT,
+            hp INTEGER DEFAULT 1000,
+            xp INTEGER DEFAULT 0,
+            gold INTEGER DEFAULT 100,
+            piastres INTEGER DEFAULT 10,
+            pearls INTEGER DEFAULT 0,
+            level INTEGER DEFAULT 1
+        )
     """)
 
-    # Если база уже была создана раньше — добавим новые поля
+    # Проверяем существующие столбцы
+    cur.execute("PRAGMA table_info(players)")
+    columns = [row[1] for row in cur.fetchall()]
 
-    try:
-        cur.execute("ALTER TABLE players ADD COLUMN gender TEXT DEFAULT 'male'")
-    except:
-        pass
+    # Добавляем недостающие столбцы в старую базу
+    if "password" not in columns:
+        cur.execute("ALTER TABLE players ADD COLUMN password TEXT")
+
+    if "gender" not in columns:
+        cur.execute("ALTER TABLE players ADD COLUMN gender TEXT")
+
+    if "hp" not in columns:
+        cur.execute("ALTER TABLE players ADD COLUMN hp INTEGER DEFAULT 1000")
+
+    if "xp" not in columns:
+        cur.execute("ALTER TABLE players ADD COLUMN xp INTEGER DEFAULT 0")
+
+    if "gold" not in columns:
+        cur.execute("ALTER TABLE players ADD COLUMN gold INTEGER DEFAULT 100")
+
+    if "piastres" not in columns:
+        cur.execute("ALTER TABLE players ADD COLUMN piastres INTEGER DEFAULT 10")
+
+    if "pearls" not in columns:
+        cur.execute("ALTER TABLE players ADD COLUMN pearls INTEGER DEFAULT 0")
+
+    if "level" not in columns:
+        cur.execute("ALTER TABLE players ADD COLUMN level INTEGER DEFAULT 1")
 
     conn.commit()
     conn.close()

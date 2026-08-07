@@ -80,6 +80,13 @@ def get_player():
         "mail": 0
     }
 
+@app.route("/")
+def index():
+    if "nickname" in session:
+        return redirect("/port")
+
+    return redirect("/register")
+
 
 # ---------- Регистрация ----------
 

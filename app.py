@@ -33,10 +33,6 @@ def init_db():
     """)
 
     # Если база уже была создана раньше — добавим новые поля
-    try:
-        cur.execute("ALTER TABLE players ADD COLUMN password TEXT")
-    except:
-        pass
 
     try:
         cur.execute("ALTER TABLE players ADD COLUMN gender TEXT DEFAULT 'male'")

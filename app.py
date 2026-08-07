@@ -86,57 +86,76 @@ def get_player():
 
 # ---------- Регистрация ----------
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/register", methods=["GET", "POST"])
 def register():
 
-    if request.method == "POST":
+    if request.method == "GET":
+        return render_template("register.html")
 
-        nickname = request.form["nickname"]
-        password = request.form["password"]
-        gender = request.form["gender"]
+    nickname = request.form["nickname"]
+    password = request.form["password"]
+    gender = request.form["gender"]
 
-        conn = sqlite3.connect(DB)
-        cur = conn.cursor()
+    conn = sqlite3.connect(DB)
+    cur = conn.cursor()
 
-        cur.execute(
-            "SELECT id FROM players WHERE nickname=?",
-            (nickname,)
+    # Проверяем, существует ли капитан
+    cur.execute(
+        "SELECT id, password FROM players WHERE nickname=?",
+        (nickname,)
+    )
+
+    player = cur.fetchone()
+
+    # Капитан уже существует
+    if player is not None:
+
+        # Проверяем пароль
+        if player[1] == password:
+            session["nickname"] = nickname
+            conn.close()
+            return redirect("/port")
+
+        # Пароль неправильный
+        conn.close()
+        return render_template(
+            "register.html",
+            error="Неверный пароль!"
         )
 
-        if cur.fetchone() is None:
+    # Создаём нового капитана
+    cur.execute("""
+        INSERT INTO players(
+            nickname,
+            password,
+            gender,
+            hp,
+            xp,
+            gold,
+            piastres,
+            pearls,
+            level
+        )
+        VALUES(?,?,?,?,?,?,?,?,?)
+    """, (
+        nickname,
+        password,
+        gender,
+        1000,
+        0,
+        100,
+        10,
+        0,
+        1
+    ))
 
-            cur.execute("""
-INSERT INTO players(
-    nickname,
-    password,
-    gender,
-    hp,
-    xp,
-    gold,
-    piastres,
-    pearls,
-    level
-)
-VALUES(?,?,?,?,?,?,?,?,?)
-""", (
-    nickname,
-    password,
-    gender,
-    1000,
-    0,
-    100,
-    10,
-    0,
-    1
-))
+    conn.commit()
+    conn.close()
 
-            conn.commit()
+    # Запоминаем капитана
+    session["nickname"] = nickname
 
-        conn.close()
-
-        session["nickname"] = nickname
-
-        return redirect("/port")
+    return redirect("/port")
 
     return render_template("register.html")
 

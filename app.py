@@ -104,25 +104,29 @@ def register():
         if cur.fetchone() is None:
 
             cur.execute("""
-            INSERT INTO players(
-                nickname,
-                hp,
-                xp,
-                gold,
-                piastres,
-                pearls,
-                level
-            )
-            VALUES(?,?,?,?,?,?,?)
-            """, (
-                nickname,
-                1000,
-                0,
-                100,
-                10,
-                0,
-                1
-            ))
+INSERT INTO players(
+    nickname,
+    password,
+    gender,
+    hp,
+    xp,
+    gold,
+    piastres,
+    pearls,
+    level
+)
+VALUES(?,?,?,?,?,?,?,?,?)
+""", (
+    nickname,
+    password,
+    gender,
+    1000,
+    0,
+    100,
+    10,
+    0,
+    1
+))
 
             conn.commit()
 

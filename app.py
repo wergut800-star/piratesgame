@@ -80,7 +80,8 @@ def get_player():
         "piastres": row[4],
         "pearls": row[5],
         "level": row[6],
-        "mail": 0
+"gender": row[7],
+"mail": 0
     }
 
 

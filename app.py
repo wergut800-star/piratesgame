@@ -92,6 +92,8 @@ def register():
     if request.method == "POST":
 
         nickname = request.form["nickname"]
+        password = request.form["password"]
+        gender = request.form["gender"]
 
         conn = sqlite3.connect(DB)
         cur = conn.cursor()

@@ -12,6 +12,7 @@ online_locations = {}
 
 # ---------- База данных ----------
 
+
 def init_db():
     conn = sqlite3.connect(DB)
     cur = conn.cursor()
@@ -20,6 +21,8 @@ def init_db():
     CREATE TABLE IF NOT EXISTS players(
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         nickname TEXT UNIQUE,
+        password TEXT,
+        gender TEXT DEFAULT 'male',
         hp INTEGER DEFAULT 1000,
         xp INTEGER DEFAULT 0,
         gold INTEGER DEFAULT 100,
@@ -29,9 +32,19 @@ def init_db():
     )
     """)
 
+    # Если база уже была создана раньше — добавим новые поля
+    try:
+        cur.execute("ALTER TABLE players ADD COLUMN password TEXT")
+    except:
+        pass
+
+    try:
+        cur.execute("ALTER TABLE players ADD COLUMN gender TEXT DEFAULT 'male'")
+    except:
+        pass
+
     conn.commit()
     conn.close()
-
 
 init_db()
 

@@ -60,9 +60,11 @@ def get_player():
 
     cur.execute("""
         SELECT nickname,hp,xp,gold,piastres,pearls,level
-        FROM players
-        WHERE nickname=?
-    """, (session["nickname"],))
+        cur.execute("""
+    SELECT nickname,hp,xp,gold,piastres,pearls,level,gender
+    FROM players
+    WHERE nickname=?
+""", (session["nickname"],))
 
     row = cur.fetchone()
     conn.close()

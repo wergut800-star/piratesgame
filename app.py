@@ -155,9 +155,9 @@ def register():
             error="Неверный пароль!"
         )
 
-    # Создаём нового капитана
+        # Создаём нового капитана
     cur.execute("""
-        INSERT INTO players(
+        INSERT INTO players (
             nickname,
             password,
             gender,
@@ -168,7 +168,7 @@ def register():
             pearls,
             level
         )
-        VALUES(?,?,?,?,?,?,?,?)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
     """, (
         nickname,
         password,

@@ -1,0 +1,496 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 10px;
+    background: #000;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* ===== Общий стиль ===== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #000000;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+/* ===== Блок регистрации ===== */
+
+.register-box {
+    width: 100%;
+    max-width: 420px;
+    margin: 30px auto;
+    background: #151515;
+    border: 2px solid #8b6b2d;
+    border-radius: 12px;
+    padding: 20px;
+}
+
+h1 {
+    color: gold;
+    margin-bottom: 15px;
+}
+
+h2 {
+    color: #dddddd;
+    margin-bottom: 15px;
+}
+
+/* ===== Картинка ===== */
+
+.port-image {
+    width: 100%;
+    height: auto;
+}
+
+/* ===== Поля ===== */
+
+input {
+    width: 100%;
+    padding: 12px;
+    background: #222;
+    color: white;
+    border: 1px solid #555;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+input:focus {
+    outline: none;
+    border-color: gold;
+}
+
+/* ===== Кнопка ===== */
+
+button{
+    width:100%;
+    padding:10px;
+    margin:8px 0;
+
+    background:#111;
+    color:#f5f5f5;
+
+    border:1px solid #444;
+    border-radius:10px;
+
+    font-size:26px;
+    font-weight:bold;
+
+    cursor:pointer;
+    transition:0.2s;
+}
+
+button:hover{
+    background:#1d1d1d;
+    border-color:#8b6b2d;
+}
+
+button:active{
+    background:#2a2a2a;
+}
+a button{
+    background:#111;
+    color:#f5f5f5;
+}
+
+/* ===== Ссылки ===== */
+
+a {
+    color: gold;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+.map-location{
+    width:100%;
+    margin:8px 0;
+    padding:8px;
+    box-sizing:border-box;
+}
+.game-container{
+    width:100%;
+    max-width:none;
+    margin:0;
+    padding:8px;
+}
+
+.port-box{
+    width:100%;
+    margin:0;
+    padding:12px;
+    box-sizing:border-box;
+}
+.port-box{
+    width:100%;
+    max-width:none;
+    margin:0;
+    padding:10px;
+    box-sizing:border-box;
+}
+.map-button{
+    font-size:30px;
+    padding:12px;
+}
+.top-panel{
+    width:100%;
+    padding:10px;
+    background:#111;
+    border-bottom:2px solid #b88b35;
+}
+
+.stat-title{
+    color:white;
+    font-size:20px;
+    font-weight:bold;
+    margin-top:8px;
+}
+
+.bar{
+    width:100%;
+    height:22px;
+    background:#333;
+    border-radius:12px;
+    overflow:hidden;
+    margin:6px 0 10px;
+}
+
+.life-fill{
+    height:100%;
+    width:100%;
+    background:#d02020;
+}
+
+.xp-fill{
+    height:100%;
+    width:40%;
+    background:#d4af37;
+}
+
+.resources{
+    color:#fff;
+    font-size:22px;
+    text-align:center;
+    padding:8px 0;
+}
+.captain-card{
+    color:#f0e6c0;
+    padding:12px;
+}
+
+.avatar{
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    display:block;
+    margin:0 auto 10px;
+}
+
+.captain-name{
+    text-align:center;
+    font-size:22px;
+    font-weight:bold;
+    margin-bottom:10px;
+}
+
+.captain-name span{
+    font-size:18px;
+    margin-left:10px;
+}
+
+.captain-info div {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0;
+    font-size: 18px;
+}
+
+.captain-info a{
+    color:#f0e6c0;
+    text-decoration:none;
+}
+
+.captain-info hr{
+    border:0;
+    border-top:1px solid #5a4728;
+    margin:10px 0;
+}
+.mail-link{
+    color:#7CFC00;
+    font-weight:bold;
+}
+
+.mail-link:hover{
+    color:#98FB98;
+}
+.fleet-name{
+    color:#00BFFF;
+    font-weight:bold;
+    font-size:20px;
+    text-shadow:0 0 6px #00BFFF;
+}
+.bottom-menu{
+    position:fixed;
+    bottom:0;
+    left:0;
+    width:100%;
+    background:#1d140d;
+    border-top:2px solid #5d4327;
+    display:flex;
+    justify-content:space-evenly;
+    padding:8px 0;
+    z-index:1000;
+}
+
+.bottom-btn{
+    text-decoration:none;
+    color:#f0e6c0;
+    text-align:center;
+    width:90px;
+}
+
+.bottom-icon{
+    width:54px;
+    height:54px;
+    margin:0 auto 4px;
+    border-radius:50%;
+    background:#3d2a19;
+    border:2px solid #6d4c2f;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:28px;
+}
+
+.bottom-text{
+    font-size:14px;
+    color:#f0e6c0;
+}
+
+.bottom-btn:active .bottom-icon{
+    background:#5a3d23;
+}
+.battle{
+    max-width:420px;
+    margin:auto;
+    padding:15px;
+    color:#f2e6c4;
+}
+
+.monster-img{
+    width:130px;
+    display:block;
+    margin:auto;
+}
+
+.hp{
+    text-align:center;
+    font-size:22px;
+    margin:10px;
+}
+
+.battle-btn{
+    width:100%;
+    padding:12px;
+    margin:8px 0;
+    font-size:18px;
+    border:none;
+    border-radius:8px;
+    background:#553015;
+    color:white;
+}
+
+.rum{
+    background:#1d6d1d;
+}
+
+.battle-log{
+    height:260px;
+    overflow-y:auto;
+    text-align:left;
+    background:#111;
+    padding:10px;
+    border-radius:8px;
+}
+.monster-image {
+    display: block;
+    width: 260px;
+    max-width: 90%;
+    height: auto;
+    margin: 15px auto;
+    border-radius: 12px;
+    border: 2px solid #5b4325;
+}
+body {
+    background: #1a120d;
+    color: #f0e6d2;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.battle {
+    max-width: 500px;
+    margin: auto;
+    padding: 10px;
+}
+
+.battle img {
+    width: 85%;
+    max-width: 320px;
+    height: auto;
+    display: block;
+    margin: 15px auto;
+    border-radius: 10px;
+}/* ===== Верхняя панель ===== */
+
+.top-panel{
+    width:100%;
+    background:#1a120b;
+    padding:10px;
+    border-radius:12px;
+    border:2px solid #5d3b1c;
+    margin-bottom:15px;
+}
+
+.bar-title{
+    color:#d9c7a2;
+    font-size:15px;
+    font-weight:bold;
+    text-align:left;
+    margin:8px 0 4px;
+}
+
+.bar{
+    width:100%;
+    height:20px;
+    background:#2b2b2b;
+    border:1px solid #555;
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:inset 0 2px 6px rgba(0,0,0,.6);
+}
+
+/* Жизнь */
+
+.bar-life{
+    height:100%;
+    background:linear-gradient(to bottom,#ff6b6b,#c40000);
+    border-radius:12px;
+    transition:width .3s;
+}
+
+/* Опыт */
+
+.bar-exp{
+    height:100%;
+    background:linear-gradient(to bottom,#ffe76b,#d4a400);
+    border-radius:12px;
+    transition:width .3s;
+}
+
+/* Полоса жизни монстра */
+
+.monster-bar{
+    width:100%;
+    height:24px;
+    background:#2b2b2b;
+    border:1px solid #555;
+    border-radius:14px;
+    overflow:hidden;
+    margin:10px 0;
+    position:relative;
+}
+
+.monster-fill{
+    height:100%;
+    background:linear-gradient(to bottom,#ff5555,#960000);
+    transition:width .3s;
+}
+
+.monster-text{
+    position:absolute;
+    width:100%;
+    text-align:center;
+    color:#fff;
+    font-weight:bold;
+    line-height:24px;
+    text-shadow:1px 1px 2px #000;
+}
+
+.hp {
+    color: #ff4d4d;
+    font-size: 22px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.battle-btn {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    background: #5a3a1d;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+}
+
+.battle-log {
+    margin-top: 15px;
+    padding: 10px;
+    background: #2a1d14;
+    border-radius: 8px;
+}
+body{
+    background:#000;
+    color:#fff;
+    margin:0;
+    padding:0;
+    font-family:Arial,sans-serif;
+}
+
+.battle{
+    width:100%;
+    max-width:420px;
+    margin:0 auto;
+    padding:10px;
+    background:#000;
+}
+
+.battle-log{
+    background:#141414;
+    border:1px solid #2f2f2f;
+    border-radius:12px;
+    padding:12px;
+    color:#ddd;
+    text-align:left;
+    min-height:180px;
+}
+
+hr{
+    border:0;
+    border-top:1px solid #444;
+}
+
+h2{
+    color:white;
+}

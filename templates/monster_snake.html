@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Морской змей</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+</div>
+
+<div class="battle">
+
+    <img src="{{ url_for('static', filename='images/monsters/sea_serpent.png') }}" alt="Морской змей">
+
+
+    <div class="monster-name">
+    Морской змей
+</div>
+
+<div class="monster-bar">
+    <div class="monster-fill"
+         style="width: {{ monster_hp * 100 // monster_max_hp }}%;"></div>
+
+    <div class="monster-text">
+        {{ monster_hp }} / {{ monster_max_hp }}
+    </div>
+</div>
+
+    <br>
+
+    <form action="/snake/fire" method="post">
+        <button class="battle-btn">🔥 Огонь в Морского змея</button>
+    </form>
+
+    <form action="/snake/harpoon" method="post">
+        <button class="battle-btn">🪝 Запустить гарпуны!</button>
+    </form>
+
+    {% if player_hp < 300 %}
+    <form action="/snake/rum" method="post">
+        <button class="battle-btn rum">🥃 Выпить ром</button>
+    </form>
+    {% endif %}
+
+    <hr>
+
+    <div class="battle-log">
+
+        {% for line in battle_log %}
+            <p>{{ line }}</p>
+        {% endfor %}
+
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Капитан</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<div class="captain-card">
+
+    <img src="{{ url_for('static', filename='images/avatar.png') }}" class="avatar">
+
+    <div class="captain-name">
+        <strong>{{ player.nickname }}</strong>
+        <span>Ур. {{ player.level }}</span>
+    </div>
+
+    <div class="captain-info">
+        <div>♂ {{ player.gender }}</div>
+        <div>🎖 {{ player.rank }}</div>
+
+        <hr>
+
+        <div>🦜 <a href="/mail" class="mail-link">Почта</a></div>
+        <div>🛏 <a href="/cabin">Каюта</a></div>
+        <div>⛵ <a href="/ship">Корабль</a></div>
+        <div>📖 <a href="/journal">Судовой журнал</a></div>
+        <div>🏆 <a href="/achievements">Достижения</a></div>
+
+        <hr>
+
+        <div>⚔ Атака <span>{{ player.attack }}</span></div>
+        <div>🛡 Защита <span>{{ player.defense }}</span></div>
+        <div>💨 Скорость <span>{{ player.speed }}</span></div>
+        <div>🧭 Маневр <span>{{ player.maneuver }}</span></div>
+        <div>❤️ Жизнь <span>{{ player.hp }}/{{ player.max_hp }}</span></div>
+
+        <hr>
+
+        <div>🏴 Состоит во флоте:
+            <strong class="fleet-name">{{ player.fleet }}</strong>
+        </div>
+
+    </div>
+
+</div>
+</body>
+</html>

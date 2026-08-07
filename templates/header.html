@@ -1,0 +1,35 @@
+<div class="top-panel">
+
+    <div class="bar-title">❤️ Жизнь</div>
+    <div class="bar">
+        <div class="bar-life"
+             style="width: {{ player.hp * 100 // player.max_hp }}%;">
+        </div>
+    </div>
+    
+    <div class="bar-title">⭐ Опыт</div>
+<div class="bar">
+    <div class="bar-exp"
+         style="width: {{ player.exp * 100 // player.next_exp }}%;">
+    </div>
+</div>
+
+    
+    </div>
+
+</div>
+
+<div class="resources">
+    💰 {{ player.gold }}
+    &nbsp;&nbsp;
+    🪙 {{ player.piastres }}
+    &nbsp;&nbsp;
+    🦪 {{ player.pearls }}
+    &nbsp;&nbsp;
+    ✉️ {{ player.mail }}
+</div>
+
+
+<hr>
+
+</div>

@@ -82,9 +82,12 @@ def get_player():
 
 @app.route("/")
 def index():
-    if "nickname" in session:
+    player = get_player()
+
+    if player is not None:
         return redirect("/port")
 
+    session.pop("nickname", None)
     return redirect("/register")
 
 

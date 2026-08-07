@@ -24,8 +24,15 @@
     </div>
 
     <div class="captain-info">
-        <div>♂ {{ player.gender }}</div>
-        <div>🎖 {{ player.rank }}</div>
+    <div>
+        {% if player.gender == "female" %}
+            ♀ Женский
+        {% else %}
+            ♂ Мужской
+        {% endif %}
+    </div>
+
+    <div>🏅 {{ player.rank }}</div>
 
         <hr>
 

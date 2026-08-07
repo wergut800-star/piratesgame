@@ -133,7 +133,7 @@ def register():
             pearls,
             level
         )
-        VALUES(?,?,?,?,?,?,?,?,?)
+        VALUES(?,?,?,?,?,?,?,?)
     """, (
         nickname,
         password,

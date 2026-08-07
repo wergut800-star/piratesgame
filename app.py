@@ -54,11 +54,11 @@ def get_player():
     conn = sqlite3.connect(DB)
     cur = conn.cursor()
 
-        cur.execute("""
-    SELECT nickname,hp,xp,gold,piastres,pearls,level,gender
-    FROM players
-    WHERE nickname=?
-""", (session["nickname"],))
+    cur.execute("""
+        SELECT nickname, hp, xp, gold, piastres, pearls, level, gender
+        FROM players
+        WHERE nickname=?
+    """, (session["nickname"],))
 
     row = cur.fetchone()
     conn.close()
@@ -76,8 +76,8 @@ def get_player():
         "piastres": row[4],
         "pearls": row[5],
         "level": row[6],
-"gender": row[7],
-"mail": 0
+        "gender": row[7],
+        "mail": 0
     }
 
 

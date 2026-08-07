@@ -54,8 +54,6 @@ def get_player():
     conn = sqlite3.connect(DB)
     cur = conn.cursor()
 
-    cur.execute("""
-        SELECT nickname,hp,xp,gold,piastres,pearls,level
         cur.execute("""
     SELECT nickname,hp,xp,gold,piastres,pearls,level,gender
     FROM players

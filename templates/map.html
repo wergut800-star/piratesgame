@@ -17,7 +17,7 @@
 
 {% for loc in locations %}
 <div class="map-location {% if loc.available %}location-open{% else %}location-locked{% endif %}">
-    <b style="font-size:28px; color:#ffd700;">
+    <b style="font-size:28px;">
     {{ loc.name }}
 </b><br>
     Требуемый уровень: {{ loc.level }}<br><br>

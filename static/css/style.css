@@ -693,3 +693,9 @@ h2{
     color: #2196f3;
     font-weight: bold;
 }
+/* Разделитель групп кнопок */
+hr {
+    border: none;
+    border-top: 2px solid #5a4020;
+    margin: 14px 0;
+}

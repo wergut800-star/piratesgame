@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>{{ player['nickname'] }}</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="other-player">
+
+    <h2>🏴‍☠️ Пират</h2>
+
+    <div class="other-player-avatar">
+        👤
+    </div>
+
+    <h1>{{ player['nickname'] }}</h1>
+
+    <div class="other-player-level">
+        ⭐ Уровень {{ player['level'] }}
+    </div>
+
+    <hr>
+
+    <div class="player-stat">
+        ❤️ Жизнь:
+        <b>{{ player['hp'] }}</b>
+    </div>
+
+    <div class="player-stat">
+        ⭐ Опыт:
+        <b>{{ player['xp'] }}</b>
+    </div>
+
+    <div class="player-stat">
+        💰 Золото:
+        <b>{{ player['gold'] }}</b>
+    </div>
+
+    <div class="player-stat">
+        🪙 Пиастры:
+        <b>{{ player['piastres'] }}</b>
+    </div>
+
+    <div class="player-stat">
+        🦪 Жемчуг:
+        <b>{{ player['pearls'] }}</b>
+    </div>
+
+    <br>
+
+    <button class="attack-player">
+        ⚔️ Напасть
+    </button>
+
+    <a href="/players" class="back-button">
+        🔎 Назад к поиску
+    </a>
+
+</div>
+
+</body>
+</html>

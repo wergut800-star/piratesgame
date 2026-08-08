@@ -119,7 +119,7 @@ FROM players
         "gold": row[3],
         "piastres": row[4],
         "pearls": row[5],
-        "level": row[6],
+        "level": row[75],
         "gender": row[7],
         "mail": 0
     }

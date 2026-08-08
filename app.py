@@ -322,6 +322,38 @@ def sea():
         locations=locations
     )
 
+# ---------- Боты Пенной бухты ----------
+
+bots_pennaya_buhta = [
+    {
+        "name": "Джон Сильвер",
+        "level": 1,
+        "hp": 100,
+        "attack": 10,
+        "defense": 5,
+        "reward_gold": 50,
+        "reward_xp": 20
+    },
+    {
+        "name": "Эдди Крю",
+        "level": 2,
+        "hp": 130,
+        "attack": 13,
+        "defense": 7,
+        "reward_gold": 75,
+        "reward_xp": 30
+    },
+    {
+        "name": "Головорез Джо",
+        "level": 3,
+        "hp": 170,
+        "attack": 17,
+        "defense": 10,
+        "reward_gold": 100,
+        "reward_xp": 40
+    }
+]
+
 
 # ---------- Карта ----------
 

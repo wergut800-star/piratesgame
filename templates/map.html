@@ -17,7 +17,7 @@
 
 {% for loc in locations %}
 <div class="map-location" style="color: {% if loc.available %}white{% else %}#ff3333{% endif %};">
-    <b style="font-size:28px;">
+    <b style="font-size:28px; color: inherit;">
     {{ loc.name }}
 </b><br>
     Требуемый уровень: {{ loc.level }}<br><br>

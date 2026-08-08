@@ -21,44 +21,170 @@
 
     <h2> Карта Карибского моря</h2>
 
-    <div class="location-list">
+    {% for loc in locations %}
 
-        <div class="location">
+<div class="location {% if loc.available %}location-open{% else %}location-locked{% endif %}">
+
+    ☠️ <b>{{ loc.name }}</b>
+
+    {% if loc.available %}
+        <small>Доступен</small>
+    {% else %}
+        <small>Требуемый уровень: {{ loc.level }}</small>
+    {% endif %}
+
+</div>
+
+{% endfor %}
+
+        {% for loc in locations %}
+
+<div class="location {% if loc.available %}location-open{% else %}location-locked{% endif %}">
+
+    ☠️ <b>{{ loc.name }}</b>
+
+    {% if loc.available %}
+        <small>Доступен</small>
+    {% else %}
+        <small>Требуемый уровень: {{ loc.level }}</small>
+    {% endif %}
+
+</div>
+
+{% endfor %}
             ☠️ <b>Пенная бухта</b>
             <small>Доступен</small>
         </div>
 
-        <div class="location">
+        {% for loc in locations %}
+
+<div class="location {% if loc.available %}location-open{% else %}location-locked{% endif %}">
+
+    ☠️ <b>{{ loc.name }}</b>
+
+    {% if loc.available %}
+        <small>Доступен</small>
+    {% else %}
+        <small>Требуемый уровень: {{ loc.level }}</small>
+    {% endif %}
+
+</div>
+
+{% endfor %}
             ☠️ <b>Остров Черепа</b>
             <small>Требуемый уровень: 10</small>
         </div>
 
-        <div class="location">
+        {% for loc in locations %}
+
+<div class="location {% if loc.available %}location-open{% else %}location-locked{% endif %}">
+
+    ☠️ <b>{{ loc.name }}</b>
+
+    {% if loc.available %}
+        <small>Доступен</small>
+    {% else %}
+        <small>Требуемый уровень: {{ loc.level }}</small>
+    {% endif %}
+
+</div>
+
+{% endfor %}
             ☠️ <b>Пропащие души</b>
             <small>Требуемый уровень: 20</small>
         </div>
 
-        <div class="location">
+        {% for loc in locations %}
+
+<div class="location {% if loc.available %}location-open{% else %}location-locked{% endif %}">
+
+    ☠️ <b>{{ loc.name }}</b>
+
+    {% if loc.available %}
+        <small>Доступен</small>
+    {% else %}
+        <small>Требуемый уровень: {{ loc.level }}</small>
+    {% endif %}
+
+</div>
+
+{% endfor %}
             ☠️ <b>Логово пиратов</b>
             <small>Требуемый уровень: 20</small>
         </div>
 
-        <div class="location">
+        {% for loc in locations %}
+
+<div class="location {% if loc.available %}location-open{% else %}location-locked{% endif %}">
+
+    ☠️ <b>{{ loc.name }}</b>
+
+    {% if loc.available %}
+        <small>Доступен</small>
+    {% else %}
+        <small>Требуемый уровень: {{ loc.level }}</small>
+    {% endif %}
+
+</div>
+
+{% endfor %}
             ☠️ <b>Сент-Китс</b>
             <small>Требуемый уровень: 35</small>
         </div>
 
-        <div class="location">
+        {% for loc in locations %}
+
+<div class="location {% if loc.available %}location-open{% else %}location-locked{% endif %}">
+
+    ☠️ <b>{{ loc.name }}</b>
+
+    {% if loc.available %}
+        <small>Доступен</small>
+    {% else %}
+        <small>Требуемый уровень: {{ loc.level }}</small>
+    {% endif %}
+
+</div>
+
+{% endfor %}
             ☠️ <b>Ледяные острова</b>
             <small>Требуемый уровень: 35</small>
         </div>
 
-        <div class="location">
+        {% for loc in locations %}
+
+<div class="location {% if loc.available %}location-open{% else %}location-locked{% endif %}">
+
+    ☠️ <b>{{ loc.name }}</b>
+
+    {% if loc.available %}
+        <small>Доступен</small>
+    {% else %}
+        <small>Требуемый уровень: {{ loc.level }}</small>
+    {% endif %}
+
+</div>
+
+{% endfor %}
             ☠️ <b>Сент Люсия</b>
             <small>Требуемый уровень: 45</small>
         </div>
 
-        <div class="location">
+        {% for loc in locations %}
+
+<div class="location {% if loc.available %}location-open{% else %}location-locked{% endif %}">
+
+    ☠️ <b>{{ loc.name }}</b>
+
+    {% if loc.available %}
+        <small>Доступен</small>
+    {% else %}
+        <small>Требуемый уровень: {{ loc.level }}</small>
+    {% endif %}
+
+</div>
+
+{% endfor %}
             ☠️ <b>Тайник Дейви Джонса</b>
             <small>Требуемый уровень: 48</small>
         </div>

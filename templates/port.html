@@ -88,8 +88,9 @@ margin:20px 0;
 
 </div>
 
-<div id="online-count">
-    🟢 В игре: <span id="players-online">0</span> игроков
+<div class="online-bar">
+    <span>🟢 В игре: {{ online_count }} игроков</span>
+    <a href="/players">🔎 Поиск игроков</a>
 </div>
 
 <script>

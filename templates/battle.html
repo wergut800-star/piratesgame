@@ -336,3 +336,366 @@
 
 </body>
 </html>
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Морской бой</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        .battle-container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .battle-target {
+            margin-top: 15px;
+            padding: 10px;
+            background: #17120f;
+            border: 1px solid #5b4324;
+            border-radius: 10px;
+        }
+
+        .battle-avatar {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid #b89552;
+            margin: 10px auto;
+            display: block;
+        }
+
+        .battle-name {
+            font-size: 22px;
+            font-weight: bold;
+            color: #e0bd76;
+        }
+
+        .battle-level {
+            color: #aaa;
+            margin-top: 4px;
+        }
+
+        .battle-actions {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .battle-actions button {
+            min-height: 55px;
+            border: 1px solid #654c2b;
+            border-radius: 8px;
+            background: #211914;
+            color: #eee;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .battle-actions button:active {
+            background: #4b301b;
+        }
+
+        .rum-button {
+            display: none;
+            width: 100%;
+            margin-top: 8px;
+            min-height: 50px;
+            border: 1px solid #8b652e;
+            border-radius: 8px;
+            background: #392313;
+            color: #e7c47c;
+            font-size: 17px;
+            font-weight: bold;
+        }
+
+        .battle-log {
+            margin-top: 15px;
+            padding: 12px;
+            min-height: 90px;
+            text-align: left;
+            background: #0f0c0a;
+            border: 1px solid #4b3821;
+            border-radius: 8px;
+            color: #ddd;
+        }
+
+        .battle-log p {
+            margin: 6px 0;
+        }
+
+        .player-hit {
+            color: #ff6565;
+        }
+
+        .enemy-hit {
+            color: #ffb35c;
+        }
+
+        .back-port {
+            display: block;
+            width: 100%;
+            margin-top: 20px;
+            padding: 13px 0;
+            border-radius: 8px;
+            border: 1px solid #5d4728;
+            background: #17130f;
+            color: #eee;
+            text-decoration: none;
+            font-size: 17px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+{% include "header.html" %}
+
+<div class="battle-container">
+
+    <div class="battle-target">
+
+        {% if bot %}
+            <img
+                src="{{ url_for('static', filename='images/bots/' + bot.image) }}"
+                class="battle-avatar"
+                alt="{{ bot.name }}"
+            >
+
+            <div class="battle-name">
+                {{ bot.name }}
+            </div>
+
+            <div class="battle-level">
+                Ур. {{ bot.level }}
+            </div>
+
+        {% else %}
+
+            <img
+                src="{{ url_for('static', filename='images/avatar.png') }}"
+                class="battle-avatar"
+                alt="Игрок"
+            >
+
+            <div class="battle-name">
+                {{ opponent.nickname }}
+            </div>
+
+            <div class="battle-level">
+                Ур. {{ opponent.level }}
+            </div>
+
+        {% endif %}
+
+    </div>
+
+
+    <div class="battle-actions">
+
+        <button onclick="attack('cannon')">
+            ⚓<br>
+            Пушка
+        </button>
+
+        <button onclick="attack('harpoon')">
+            🔱<br>
+            Гарпуны
+        </button>
+
+        <button onclick="attack('mortar')">
+            💣<br>
+            Мортира
+        </button>
+
+    </div>
+
+
+    <button
+        id="rumButton"
+        class="rum-button"
+        onclick="drinkRum()">
+        🍹 Выпить ром
+    </button>
+
+
+    <div class="battle-log" id="battleLog">
+
+        <p>
+            ⚔️ Бой начался!
+        </p>
+
+        {% if bot %}
+        <p>
+            ☠️ {{ bot.name }} готов к бою.
+        </p>
+        {% else %}
+        <p>
+            ☠️ Вы встретили другого пирата.
+        </p>
+        {% endif %}
+
+    </div>
+
+
+    <a href="/sea" class="back-port">
+        ⚓ Вернуться в море
+    </a>
+
+</div>
+
+
+<script>
+
+function attack(type) {
+
+    fetch("/battle/attack", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            weapon: type
+        })
+    })
+
+    .then(response => response.json())
+
+    .then(data => {
+
+        const log = document.getElementById("battleLog");
+
+        if (data.message) {
+
+            const p = document.createElement("p");
+
+            p.className = "player-hit";
+
+            p.textContent = data.message;
+
+            log.appendChild(p);
+        }
+
+
+        if (data.enemy_message) {
+
+            const p = document.createElement("p");
+
+            p.className = "enemy-hit";
+
+            p.textContent = data.enemy_message;
+
+            log.appendChild(p);
+        }
+
+
+        if (data.player_hp !== undefined) {
+
+            updatePlayerHealth(data.player_hp);
+        }
+
+
+        if (data.enemy_hp !== undefined) {
+
+            updateEnemyHealth(data.enemy_hp);
+        }
+
+
+        if (data.player_hp < 25) {
+
+            document.getElementById("rumButton").style.display = "block";
+
+        } else {
+
+            document.getElementById("rumButton").style.display = "none";
+
+        }
+
+
+        if (data.finished) {
+
+            const p = document.createElement("p");
+
+            p.textContent = data.result;
+
+            log.appendChild(p);
+
+            document.querySelectorAll(".battle-actions button")
+                .forEach(button => button.disabled = true);
+        }
+
+    })
+
+    .catch(error => {
+
+        console.log(error);
+
+    });
+}
+
+
+function drinkRum() {
+
+    fetch("/battle/rum", {
+        method: "POST"
+    })
+
+    .then(response => response.json())
+
+    .then(data => {
+
+        if (data.player_hp !== undefined) {
+
+            updatePlayerHealth(data.player_hp);
+        }
+
+        document.getElementById("rumButton").style.display = "none";
+
+        const log = document.getElementById("battleLog");
+
+        const p = document.createElement("p");
+
+        p.textContent = "🍹 Вы выпили ром и восстановили здоровье.";
+
+        log.appendChild(p);
+
+    });
+}
+
+
+function updatePlayerHealth(hp) {
+
+    const bar = document.querySelector(".health-bar");
+
+    if (bar) {
+
+        bar.style.width = hp + "%";
+    }
+}
+
+
+function updateEnemyHealth(hp) {
+
+    const bar = document.querySelector(".enemy-health-bar");
+
+    if (bar) {
+
+        bar.style.width = hp + "%";
+    }
+}
+
+</script>
+
+</body>
+</html>

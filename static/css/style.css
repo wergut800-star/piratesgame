@@ -747,3 +747,11 @@ hr {
 .location.available {
     color: #ffffff;
 }
+.location-open {
+    color: white;
+}
+
+.location-locked {
+    color: #ff3333;
+    text-shadow: 0 0 8px red;
+}

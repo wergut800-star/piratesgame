@@ -91,6 +91,22 @@ margin:20px 0;
     🟢 В игре: <span id="players-online">0</span> игроков
 </div>
 
+<script>
+function updateOnlineCount() {
+    fetch("/online_count")
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("players-online").textContent = data.count;
+        })
+        .catch(error => {
+            console.log("Ошибка получения онлайна:", error);
+        });
+}
+
+updateOnlineCount();
+setInterval(updateOnlineCount, 10000);
+</script>
+
 </div>
 
 </body>

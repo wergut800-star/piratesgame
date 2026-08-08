@@ -81,8 +81,8 @@ input:focus {
 
 button{
     width:100%;
-    padding:10px;
-    margin:8px 0;
+    padding:14px 10px;
+    margin:9px 0;
 
     background:#111;
     color:#f5f5f5;
@@ -90,11 +90,10 @@ button{
     border:1px solid #444;
     border-radius:10px;
 
-    font-size:26px;
+    font-size:24px;
     font-weight:bold;
 
     cursor:pointer;
-    transition:0.2s;
 }
 
 button:hover{

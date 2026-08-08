@@ -35,7 +35,7 @@ def init_db():
     )
 """)
              
-            cur.execute("""
+    cur.execute("""
 CREATE TABLE IF NOT EXISTS online_players (
     nickname TEXT PRIMARY KEY,
     last_seen INTEGER

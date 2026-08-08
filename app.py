@@ -400,6 +400,31 @@ def heartbeat():
 
     return "", 204
 
+@app.route("/online_count")
+def online_count():
+    import time
+
+    conn = sqlite3.connect(DB)
+    cur = conn.cursor()
+
+    # Удаляем игроков, которые не выходили на связь больше 60 секунд
+    limit = int(time.time()) - 60
+
+    cur.execute(
+        "DELETE FROM online_players WHERE last_seen < ?",
+        (limit,)
+    )
+
+    conn.commit()
+
+    # Считаем игроков онлайн
+    cur.execute("SELECT COUNT(*) FROM online_players")
+    count = cur.fetchone()[0]
+
+    conn.close()
+
+    return {"count": count}
+
 if __name__ == "__main__":
     app.run(
         host="0.0.0.0",

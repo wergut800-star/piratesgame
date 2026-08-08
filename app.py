@@ -72,12 +72,12 @@ CREATE TABLE IF NOT EXISTS online_players (
     if "level" not in columns:
         cur.execute("ALTER TABLE players ADD COLUMN level INTEGER DEFAULT 1")
 
-if "attack" not in columns:
+    if "attack" not in columns:
     cur.execute(
         "ALTER TABLE players ADD COLUMN attack INTEGER DEFAULT 10"
     )
 
-if "speed" not in columns:
+    if "speed" not in columns:
     cur.execute(
         "ALTER TABLE players ADD COLUMN speed INTEGER DEFAULT 10"
     )

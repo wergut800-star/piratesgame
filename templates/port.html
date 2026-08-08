@@ -103,8 +103,24 @@ function updateOnlineCount() {
         });
 }
 
+function sendHeartbeat() {
+    fetch("/heartbeat", {
+        method: "POST"
+    })
+    .catch(error => {
+        console.log("Ошибка heartbeat:", error);
+    });
+}
+
+// Сразу при открытии страницы
 updateOnlineCount();
+sendHeartbeat();
+
+// Обновляем количество игроков каждые 10 секунд
 setInterval(updateOnlineCount, 10000);
+
+// Сообщаем серверу, что игрок онлайн, каждые 20 секунд
+setInterval(sendHeartbeat, 20000);
 </script>
 
 </div>

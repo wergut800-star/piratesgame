@@ -378,6 +378,28 @@ def monster_snake():
 
 # ---------- Запуск ----------
 
+@app.route("/heartbeat", methods=["POST"])
+def heartbeat():
+    nickname = session.get("nickname")
+
+    if not nickname:
+        return "", 401
+
+    import time
+
+    conn = sqlite3.connect(DB)
+    cur = conn.cursor()
+
+    cur.execute("""
+        INSERT OR REPLACE INTO online_players (nickname, last_seen)
+        VALUES (?, ?)
+    """, (nickname, int(time.time())))
+
+    conn.commit()
+    conn.close()
+
+    return "", 204
+
 if __name__ == "__main__":
     app.run(
         host="0.0.0.0",

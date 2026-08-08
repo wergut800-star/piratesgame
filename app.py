@@ -507,6 +507,40 @@ def battle_rum():
         "player_hp": battle["player_hp"]
     })
 
+# ---------- Бой с ботом ----------
+
+@app.route("/battle/<bot_name>")
+def battle(bot_name):
+
+    player = get_player()
+
+    if player is None:
+        return redirect("/")
+
+    # Боты Пенной бухты
+    bots = LOCATION_BOTS.get("Пенная бухта", [])
+
+    # Ищем нужного бота
+    bot = None
+
+    for b in bots:
+        if b["name"] == bot_name:
+            bot = b.copy()
+            break
+
+    if bot is None:
+        return redirect("/sea")
+
+    # Начинаем новый бой
+    session["battle_bot"] = bot["name"]
+
+    return render_template(
+        "battle.html",
+        player=player,
+        bot=bot,
+        battle_log=[]
+    )
+
 
     # ---------- Море ----------
 

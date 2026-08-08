@@ -98,8 +98,9 @@ def get_player():
     cur = conn.cursor()
 
     cur.execute("""
-        SELECT nickname, hp, xp, gold, piastres, pearls, level, gender
-        FROM players
+        SELECT nickname, hp, xp, gold, piastres,
+pearls, level, gender, attack, speed
+FROM players
         WHERE nickname=?
     """, (session["nickname"],))
 

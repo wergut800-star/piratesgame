@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Бой</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        .battle-page {
+            min-height: 100vh;
+            background: #050505;
+            color: #eee;
+            text-align: center;
+            padding-bottom: 25px;
+            box-sizing: border-box;
+        }
+
+        /* Верхние шкалы */
+
+        .battle-status {
+            padding: 8px;
+            background: #120d09;
+            border-bottom: 1px solid #4b3517;
+        }
+
+        .status-title {
+            text-align: left;
+            font-size: 13px;
+            margin: 2px 0;
+            color: #ddd;
+        }
+
+        .health-bar,
+        .xp-bar {
+            width: 100%;
+            height: 19px;
+            background: #292929;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #3c3c3c;
+            margin-bottom: 6px;
+        }
+
+        .health-fill {
+            height: 100%;
+            width: {{ player.health_percent|default(100) }}%;
+            background: #e51b23;
+        }
+
+        .xp-fill {
+            height: 100%;
+            width: {{ player.xp_percent|default(0) }}%;
+            background: #444;
+        }
+
+        /* Ресурсы */
+
+        .battle-resources {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            padding: 12px 5px;
+            border-bottom: 1px solid #332513;
+            font-size: 15px;
+        }
+
+        /* Противник */
+
+        .enemy-box {
+            margin-top: 25px;
+        }
+
+        .enemy-name {
+            font-size: 22px;
+            font-weight: bold;
+            color: #e6c477;
+            margin-top: 8px;
+        }
+
+        .enemy-level {
+            font-size: 14px;
+            color: #aaa;
+            margin-top: 3px;
+        }
+
+        .enemy-avatar {
+            width: 130px;
+            height: 130px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid #8b6a35;
+            background: #151515;
+        }
+
+        .enemy-health {
+            width: 230px;
+            height: 16px;
+            margin: 10px auto;
+            background: #292929;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .enemy-health-fill {
+            height: 100%;
+            width: {{ enemy.health_percent|default(100) }}%;
+            background: #b51219;
+        }
+
+        /* Боевые кнопки */
+
+        .battle-actions {
+            width: 92%;
+            max-width: 420px;
+            margin: 20px auto;
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+        }
+
+        .battle-button {
+            width: 100%;
+            min-height: 50px;
+            border-radius: 8px;
+            border: 1px solid #49351d;
+            background: #171717;
+            color: #eee;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .battle-button:active {
+            background: #292929;
+        }
+
+        .rum-button {
+            background: #24170d;
+            border-color: #76502a;
+        }
+
+        /* Журнал боя */
+
+        .battle-log {
+            width: 92%;
+            max-width: 500px;
+            margin: 20px auto;
+            text-align: left;
+            background: #0d0d0d;
+            border: 1px solid #2e2418;
+            border-radius: 8px;
+            padding: 10px;
+            box-sizing: border-box;
+            min-height: 70px;
+        }
+
+        .battle-message {
+            padding: 6px 3px;
+            font-size: 14px;
+            border-bottom: 1px solid #211c17;
+        }
+
+        .battle-message:last-child {
+            border-bottom: none;
+        }
+
+        /* Возврат в порт */
+
+        .port-button {
+            display: block;
+            width: 92%;
+            max-width: 500px;
+            margin: 25px auto 5px;
+            padding: 13px 10px;
+            box-sizing: border-box;
+
+            background: #151515;
+            color: #eee;
+            border: 1px solid #49351d;
+            border-radius: 8px;
+
+            font-size: 17px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .port-button:active {
+            background: #292929;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="battle-page">
+
+    <!-- ========================= -->
+    <!-- ЖИЗНЬ И ОПЫТ -->
+    <!-- ========================= -->
+
+    <div class="battle-status">
+
+        <div class="status-title">
+            ❤️ Жизнь
+        </div>
+
+        <div class="health-bar">
+            <div class="health-fill"></div>
+        </div>
+
+        <div class="status-title">
+            ⭐ Опыт
+        </div>
+
+        <div class="xp-bar">
+            <div class="xp-fill"></div>
+        </div>
+
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- РЕСУРСЫ -->
+    <!-- ========================= -->
+
+    <div class="battle-resources">
+
+        <span>💰 {{ player.gold|default(100) }}</span>
+
+        <span>🪙 {{ player.piastres|default(10) }}</span>
+
+        <span>🦪 {{ player.pearl|default(0) }}</span>
+
+        <span>✉️ {{ player.mail|default(0) }}</span>
+
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- ПРОТИВНИК -->
+    <!-- ========================= -->
+
+    <div class="enemy-box">
+
+        <img
+            src="{{ enemy.avatar|default(url_for('static', filename='images/bots/john_silver.jpg')) }}"
+            class="enemy-avatar"
+            alt="Противник"
+        >
+
+        <div class="enemy-name">
+            {{ enemy.name|default('Джон Сильвер') }}
+        </div>
+
+        <div class="enemy-level">
+            Ур. {{ enemy.level|default(1) }}
+        </div>
+
+        <div class="enemy-health">
+            <div class="enemy-health-fill"></div>
+        </div>
+
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- БОЕВЫЕ КНОПКИ -->
+    <!-- ========================= -->
+
+    <div class="battle-actions">
+
+        <button class="battle-button">
+            🔫 Пушка
+        </button>
+
+        <button class="battle-button">
+            🔱 Гарпуны
+        </button>
+
+        <button class="battle-button">
+            💣 Мортира
+        </button>
+
+        {% if player.health_percent|default(100) < 25 %}
+
+        <button class="battle-button rum-button">
+            🍾 Выпить ром
+        </button>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- ЖУРНАЛ БОЯ -->
+    <!-- ========================= -->
+
+    <div class="battle-log">
+
+        {% if battle_log %}
+
+            {% for message in battle_log %}
+
+                <div class="battle-message">
+                    {{ message }}
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="battle-message">
+                ⚔️ Бой начинается!
+            </div>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- ВЕРНУТЬСЯ В ПОРТ -->
+    <!-- ========================= -->
+
+    <a href="/port" class="port-button">
+        ⚓ Вернуться в порт
+    </a>
+
+</div>
+
+</body>
+</html>

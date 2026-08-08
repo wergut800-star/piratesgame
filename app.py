@@ -424,6 +424,64 @@ def online_count():
 
     return {"count": count}
 
+@app.route("/players")
+def players_search():
+    if "nickname" not in session:
+        return redirect("/")
+
+    query = request.args.get("q", "").strip()
+
+    conn = sqlite3.connect(DB)
+    conn.row_factory = sqlite3.Row
+    cur = conn.cursor()
+
+    if query:
+        cur.execute("""
+            SELECT nickname, level
+            FROM players
+            WHERE nickname LIKE ?
+            ORDER BY level DESC, nickname
+            LIMIT 30
+        """, (f"%{query}%",))
+        players = cur.fetchall()
+    else:
+        players = []
+
+    conn.close()
+
+    return render_template(
+        "players.html",
+        players=players,
+        query=query
+    )
+
+
+@app.route("/player/<nickname>")
+def player_profile(nickname):
+    if "nickname" not in session:
+        return redirect("/")
+
+    conn = sqlite3.connect(DB)
+    conn.row_factory = sqlite3.Row
+    cur = conn.cursor()
+
+    cur.execute("""
+        SELECT nickname, gender, hp, xp, gold, piastres, pearls, level
+        FROM players
+        WHERE nickname = ?
+    """, (nickname,))
+
+    player = cur.fetchone()
+    conn.close()
+
+    if player is None:
+        return "Игрок не найден", 404
+
+    return render_template(
+        "player_profile.html",
+        player=player
+    )
+
 if __name__ == "__main__":
     app.run(
         host="0.0.0.0",

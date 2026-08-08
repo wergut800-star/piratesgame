@@ -45,8 +45,11 @@
             <div class="player-info">
 
                 <div class="player-name">
-                    {{ player['nickname'] }}
-                </div>
+    {{ player['nickname'] }}
+    {% if player['gender'] == 'female' %}
+        <span class="gender-female">(а)</span>
+    {% endif %}
+</div>
 
                 <div class="player-level">
                     ⭐ Уровень {{ player['level'] }}

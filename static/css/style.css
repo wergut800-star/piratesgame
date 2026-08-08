@@ -699,3 +699,38 @@ hr {
     border-top: 2px solid #5a4020;
     margin: 14px 0;
 }
+/* ===== Карта Карибского моря ===== */
+
+.sea-map {
+    width: 100%;
+    margin: 5px 0 15px;
+    text-align: center;
+}
+
+.sea-map h2 {
+    font-size: 24px;
+    margin: 5px 0 12px;
+    color: white;
+}
+
+.location-list {
+    font-size: 20px;
+    line-height: 1.8;
+    color: white;
+    text-align: left;
+    padding: 0 15px;
+}
+
+.location {
+    padding: 4px 0;
+}
+
+.location b {
+    font-size: 20px;
+}
+
+.location small {
+    font-size: 16px;
+    color: #ccc;
+    margin-left: 5px;
+}

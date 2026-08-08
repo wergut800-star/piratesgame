@@ -327,6 +327,11 @@ def game_map():
     {"name": "Тайник Дейви Джонса", "level": 48}
 ]
 
+    player_level = player.get("level", 1)
+
+    for location in locations:
+        location["available"] = player_level >= location["level"]
+
     return render_template(
         "map.html",
         player=player,

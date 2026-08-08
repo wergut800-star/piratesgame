@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Поиск игроков</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<div class="players-page">
+
+    <h2>🔎 Поиск игроков</h2>
+
+    <form method="get" action="/players" class="player-search">
+        <input
+            type="text"
+            name="q"
+            value="{{ query }}"
+            placeholder="Введите ник игрока"
+            autocomplete="off"
+        >
+
+        <button type="submit">
+            🔎 Найти
+        </button>
+    </form>
+
+    {% if query and not players %}
+        <div class="no-players">
+            😕 Игроков не найдено
+        </div>
+    {% endif %}
+
+    <div class="player-list">
+
+        {% for player in players %}
+
+        <a href="{{ url_for('player_profile', nickname=player['nickname']) }}"
+           class="player-card">
+
+            <div class="player-avatar">
+                👤
+            </div>
+
+            <div class="player-info">
+                <div class="player-name">
+                    {{ player['nickname'] }}
+                </div>
+
+                <div class="player-level">
+                    ⭐ Уровень {{ player['level'] }}
+                </div>
+            </div>
+
+            <div class="player-arrow">
+                ›
+            </div>
+
+        </a>
+
+        {% endfor %}
+
+    </div>
+
+    <a href="/port" class="back-button">
+        ⚓ Вернуться в порт
+    </a>
+
+</div>
+
+</body>
+      </html>

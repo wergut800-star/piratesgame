@@ -215,6 +215,64 @@ def port():
         "port.html",
         player=player
     )
+
+@app.route("/players")
+def players():
+    query = request.args.get("q", "").strip()
+
+    conn = sqlite3.connect(DB)
+    conn.row_factory = sqlite3.Row
+    cur = conn.cursor()
+
+    if query:
+        cur.execute("""
+            SELECT nickname, level
+            FROM players
+            WHERE nickname LIKE ?
+            ORDER BY nickname
+            LIMIT 30
+        """, (f"%{query}%",))
+    else:
+        cur.execute("""
+            SELECT nickname, level
+            FROM players
+            ORDER BY nickname
+            LIMIT 30
+        """)
+
+    players_list = cur.fetchall()
+    conn.close()
+
+    return render_template(
+        "players.html",
+        players=players_list,
+        query=query
+    )
+
+
+@app.route("/player/<nickname>")
+def player_profile(nickname):
+    conn = sqlite3.connect(DB)
+    conn.row_factory = sqlite3.Row
+    cur = conn.cursor()
+
+    cur.execute("""
+        SELECT nickname, gender, hp, xp, gold, piastres, pearls, level
+        FROM players
+        WHERE nickname = ?
+    """, (nickname,))
+
+    player = cur.fetchone()
+    conn.close()
+
+    if player is None:
+        return "Игрок не найден", 404
+
+    return render_template(
+        "player_profile.html",
+        player=player
+    )
+
     # ---------- Море ----------
 
 @app.route("/sea")

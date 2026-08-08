@@ -260,6 +260,20 @@ a:hover {
     padding:8px 0;
     z-index:1000;
 }
+#online-count{
+    position:fixed;
+    bottom:0;
+    left:0;
+    width:100%;
+    height:30px;
+    background:#1d140d;
+    border-top:1px solid #5d4327;
+    color:#f0e6c0;
+    text-align:center;
+    font-size:13px;
+    line-height:30px;
+    z-index:1001;
+}
 
 .bottom-btn{
     text-decoration:none;

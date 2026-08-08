@@ -677,6 +677,10 @@ h2{
     font-weight: bold;
 }
 
-.online-bar a:active {
-    color: #fff;
+.bottom-menu {
+    position: relative;
+    z-index: 100;
 }
+
+.online-bar {
+    width:

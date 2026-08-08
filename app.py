@@ -121,6 +121,8 @@ FROM players
         "pearls": row[5],
         "level": row[6],
         "gender": row[7],
+        "attack": row[8],
+        "speed": row[9],
         "mail": 0
     }
 

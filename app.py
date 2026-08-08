@@ -32,14 +32,14 @@ def init_db():
             piastres INTEGER DEFAULT 10,
             pearls INTEGER DEFAULT 0,
             level INTEGER DEFAULT 1
-)
+    )
 """)
              
             cur.execute("""
 CREATE TABLE IF NOT EXISTS online_players (
     nickname TEXT PRIMARY KEY,
     last_seen INTEGER
-)
+    )
 """)
 
 

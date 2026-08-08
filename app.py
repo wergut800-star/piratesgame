@@ -250,29 +250,6 @@ def players():
     )
 
 
-@app.route("/player/<nickname>")
-def player_profile(nickname):
-    conn = sqlite3.connect(DB)
-    conn.row_factory = sqlite3.Row
-    cur = conn.cursor()
-
-    cur.execute("""
-        SELECT nickname, gender, hp, xp, gold, piastres, pearls, level
-        FROM players
-        WHERE nickname = ?
-    """, (nickname,))
-
-    player = cur.fetchone()
-    conn.close()
-
-    if player is None:
-        return "Игрок не найден", 404
-
-    return render_template(
-        "player_profile.html",
-        player=player
-    )
-
     # ---------- Море ----------
 
 @app.route("/sea")

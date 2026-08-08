@@ -18,8 +18,12 @@
 <img src="{{ url_for('static', filename='images/avatar.png') }}" class="avatar">
 {% endif %}
 
-    <div class="captain-name">
-        <strong>{{ player.nickname }}</strong>
+    <div class="player-name">
+    {{ player['nickname'] }}
+    {% if player['gender'] == 'female' %}
+        <span class="gender-female">(а)</span>
+    {% endif %}
+</div>
         <span>Ур. {{ player.level }}</span>
     </div>
 

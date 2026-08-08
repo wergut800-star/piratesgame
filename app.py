@@ -273,6 +273,22 @@ def sea():
     if player is None:
         return redirect("/")
 
+locations = [
+    {"name": "Пенная бухта", "level": 1},
+    {"name": "Остров Черепа", "level": 10},
+    {"name": "Пропащие души", "level": 20},
+    {"name": "Логово пиратов", "level": 20},
+    {"name": "Сент-Китс", "level": 35},
+    {"name": "Ледяные острова", "level": 35},
+    {"name": "Сент Люсия", "level": 45},
+    {"name": "Тайник Дейви Джонса", "level": 48}
+]
+
+player_level = player.get("level", 1)
+
+for location in locations:
+    location["available"] = player_level >= location["level"]
+
     events = [
         "🌊 Море спокойно. Путешествие продолжается.",
         "💰 Вы нашли сундук с золотом!",

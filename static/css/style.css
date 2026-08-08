@@ -690,3 +690,7 @@ h2{
     font-weight: bold;
     margin-left: 3px;
 }
+.gender-female {
+    color: #2196f3;
+    font-weight: bold;
+}

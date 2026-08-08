@@ -341,6 +341,18 @@ def sea():
         len(online_locations[location]) - 1
     )
 
+# Боты всегда находятся в локации
+bots = LOCATION_BOTS.get(location, [])
+
+# Определяем следующего бота
+if location not in bot_turn:
+    bot_turn[location] = 0
+
+if bots:
+    current_bot = bots[bot_turn[location] % len(bots)]
+else:
+    current_bot = None
+
     return render_template(
         "sea.html",
         player=player,

@@ -33,8 +33,8 @@ def init_db():
             pearls INTEGER DEFAULT 0,
             level INTEGER DEFAULT 1
             cur.execute("""
-      )
-      """)
+)
+""")
              
             cur.execute("""
 CREATE TABLE IF NOT EXISTS online_players (

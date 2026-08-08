@@ -289,6 +289,224 @@ LOCATION_BOTS = {
 
 bot_turn = {}
 
+# ---------- БОЙ С БОТАМИ ----------
+
+BATTLE_BOTS = {
+    "Джон Сильвер": {
+        "level": 1,
+        "hp": 5000,
+        "max_hp": 5000,
+        "damage": 1222,
+        "reward_gold": 50,
+        "reward_xp": 20
+    },
+
+    "Эдди Крю": {
+        "level": 2,
+        "hp": 6500,
+        "max_hp": 6500,
+        "damage": 1300,
+        "reward_gold": 75,
+        "reward_xp": 30
+    },
+
+    "Головорез Джо": {
+        "level": 3,
+        "hp": 8000,
+        "max_hp": 8000,
+        "damage": 1380,
+        "reward_gold": 100,
+        "reward_xp": 40
+    }
+}
+
+
+# Кто сейчас должен нападать
+bot_turn = {}
+
+
+@app.route("/battle/<bot_name>")
+def battle(bot_name):
+
+    player = get_player()
+
+    if player is None:
+        return redirect("/")
+
+    if bot_name not in BATTLE_BOTS:
+        return redirect("/sea")
+
+    # Создаём отдельное состояние боя
+    battle = {
+        "bot_name": bot_name,
+        "bot_hp": BATTLE_BOTS[bot_name]["max_hp"],
+        "player_hp": player.get("health", 100),
+        "max_player_hp": player.get("max_health", 100)
+    }
+
+    session["battle"] = battle
+
+    bot = BATTLE_BOTS[bot_name].copy()
+
+    bot["hp"] = battle["bot_hp"]
+    bot["image"] = "bot.png"
+
+    return render_template(
+        "battle.html",
+        player=player,
+        bot=bot
+    )
+
+
+@app.route("/battle/attack", methods=["POST"])
+def battle_attack():
+
+    player = get_player()
+
+    if player is None:
+        return jsonify({
+            "error": "Игрок не найден"
+        })
+
+    battle = session.get("battle")
+
+    if not battle:
+        return jsonify({
+            "error": "Бой не найден"
+        })
+
+    data = request.get_json() or {}
+
+    weapon = data.get("weapon")
+
+    # Урон оружия
+    weapon_damage = {
+        "cannon": 1344,
+        "harpoon": 1100,
+        "mortar": 1600
+    }
+
+    damage = weapon_damage.get(weapon, 0)
+
+    if damage <= 0:
+        return jsonify({
+            "error": "Неизвестное оружие"
+        })
+
+    bot_name = battle["bot_name"]
+
+    bot = BATTLE_BOTS[bot_name]
+
+    # Удар игрока
+    battle["bot_hp"] -= damage
+
+    if battle["bot_hp"] < 0:
+        battle["bot_hp"] = 0
+
+    player_message = (
+        f"⚔️ Вы ударили {bot_name} "
+        f"на {damage} урона!"
+    )
+
+    # Бот погиб
+    if battle["bot_hp"] <= 0:
+
+        player["gold"] = player.get("gold", 0) + bot["reward_gold"]
+
+        player["xp"] = player.get("xp", 0) + bot["reward_xp"]
+
+        session["battle"] = None
+
+        return jsonify({
+            "message": player_message,
+            "player_hp": battle["player_hp"],
+            "enemy_hp": 0,
+            "finished": True,
+            "result": (
+                f"🏆 {bot_name} побеждён! "
+                f"+{bot['reward_gold']} золота "
+                f"+{bot['reward_xp']} опыта."
+            )
+        })
+
+    # Ответный удар бота
+    bot_damage = bot["damage"]
+
+    battle["player_hp"] -= bot_damage
+
+    if battle["player_hp"] < 0:
+        battle["player_hp"] = 0
+
+    enemy_message = (
+        f"☠️ {bot_name} ударил вас "
+        f"на {bot_damage} урона."
+    )
+
+    # Игрок погиб
+    if battle["player_hp"] <= 0:
+
+        session["battle"] = None
+
+        return jsonify({
+            "message": player_message,
+            "enemy_message": enemy_message,
+            "player_hp": 0,
+            "enemy_hp": battle["bot_hp"],
+            "finished": True,
+            "result": "☠️ Ваш корабль разбит!"
+        })
+
+    session["battle"] = battle
+
+    return jsonify({
+        "message": player_message,
+        "enemy_message": enemy_message,
+        "player_hp": battle["player_hp"],
+        "enemy_hp": battle["bot_hp"],
+        "finished": False
+    })
+
+
+@app.route("/battle/rum", methods=["POST"])
+def battle_rum():
+
+    player = get_player()
+
+    if player is None:
+        return jsonify({
+            "error": "Игрок не найден"
+        })
+
+    battle = session.get("battle")
+
+    if not battle:
+        return jsonify({
+            "error": "Бой не найден"
+        })
+
+    # Ром можно пить только при здоровье ниже 25%
+    max_hp = battle["max_player_hp"]
+
+    if battle["player_hp"] >= max_hp * 0.25:
+
+        return jsonify({
+            "error": "Сейчас ром пить нельзя"
+        })
+
+    # Восстанавливаем 50% здоровья
+    heal = int(max_hp * 0.50)
+
+    battle["player_hp"] += heal
+
+    if battle["player_hp"] > max_hp:
+        battle["player_hp"] = max_hp
+
+    session["battle"] = battle
+
+    return jsonify({
+        "player_hp": battle["player_hp"]
+    })
+
 
     # ---------- Море ----------
 

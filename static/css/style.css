@@ -735,3 +735,15 @@ hr {
     font-size: 35px;
     margin-left: 8px;
 }
+/* Закрытые локации */
+.location.locked {
+    color: #ff3333;
+    text-shadow:
+        0 0 5px #ff0000,
+        0 0 10px #ff0000;
+}
+
+/* Открытые локации */
+.location.available {
+    color: #ffffff;
+}

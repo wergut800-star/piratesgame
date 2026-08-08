@@ -22,7 +22,7 @@
 </b><br>
     Требуемый уровень: {{ loc.level }}<br><br>
 
-    {% if player.level >= loc.level %}
+    {% if loc.available %}
     <a href="/travel/{{ loop.index0 }}">
         <button>⚓ Отправиться</button>
     </a>

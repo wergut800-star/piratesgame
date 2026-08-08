@@ -534,6 +534,10 @@ def player_profile(nickname):
 def poseidon():
     return "<h1>🔱 Трезубец Посейдона</h1><p>Битва с Посейдоном скоро будет доступна!</p>"
 
+@app.route("/quests")
+def quests():
+    return "<h1>📜 Задания</h1><p>Задания скоро будут доступны!</p>"
+
 if __name__ == "__main__":
     app.run(
         host="0.0.0.0",

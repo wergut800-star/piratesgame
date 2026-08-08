@@ -315,11 +315,12 @@ for location in locations:
     )
 
     return render_template(
-        "sea.html",
-        player=player,
-        event=event,
-        players_count=players_count
-    )
+    "sea.html",
+    player=player,
+    event=event,
+    players_count=players_count,
+    locations=locations
+)
 
 
 # ---------- Карта ----------

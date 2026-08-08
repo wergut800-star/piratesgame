@@ -21,10 +21,37 @@
 
     <h2> Карта Карибского моря</h2>
 
-    
+<div class="location-list">
+
+    {% for loc in locations %}
+
+    <div class="location {% if loc.available %}location-open{% else %}location-locked{% endif %}">
+
+        ☠️ <b>{{ loc.name }}</b>
+
+        {% if loc.available %}
+
+            <small>Доступен</small>
+
+            <a href="/travel/{{ loop.index0 }}">
+                <button>⚓ Отправиться</button>
+            </a>
+
+        {% else %}
+
+            <small>Требуемый уровень: {{ loc.level }}</small>
+
+        {% endif %}
+
+    </div>
+
+    {% endfor %}
+
+</div>
 
     
 
+    
 </div>
 
 

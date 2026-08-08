@@ -273,31 +273,31 @@ def sea():
     if player is None:
         return redirect("/")
 
-locations = [
-    {"name": "Пенная бухта", "level": 1},
-    {"name": "Остров Черепа", "level": 10},
-    {"name": "Пропащие души", "level": 20},
-    {"name": "Логово пиратов", "level": 20},
-    {"name": "Сент-Китс", "level": 35},
-    {"name": "Ледяные острова", "level": 35},
-    {"name": "Сент Люсия", "level": 45},
-    {"name": "Тайник Дейви Джонса", "level": 48}
-]
+    locations = [
+        {"name": "Пенная бухта", "level": 1},
+        {"name": "Остров Черепа", "level": 10},
+        {"name": "Пропащие души", "level": 20},
+        {"name": "Логово пиратов", "level": 20},
+        {"name": "Сент-Китс", "level": 35},
+        {"name": "Ледяные острова", "level": 35},
+        {"name": "Сент Люсия", "level": 45},
+        {"name": "Тайник Дейви Джонса", "level": 48}
+    ]
 
-player_level = player.get("level", 1)
+    player_level = player.get("level", 1)
 
-for location in locations:
-    location["available"] = player_level >= location["level"]
+    for location in locations:
+        location["available"] = player_level >= location["level"]
 
     events = [
         "🌊 Море спокойно. Путешествие продолжается.",
         "💰 Вы нашли сундук с золотом!",
-        "🦜 На горизонте замечен пиратский корабль.",
+        "🏴‍☠️ На горизонте замечен пиратский корабль.",
         "🐬 Стая дельфинов сопровождает ваш корабль.",
-        "🌪 Начался сильный шторм!",
-        "🏝 Вы обнаружили неизвестный остров.",
+        "🌪️ Начался сильный шторм!",
+        "🏝️ Вы обнаружили неизвестный остров.",
         "🦈 Вокруг корабля кружат акулы.",
-        "☠️ Морской разбойник требует выкуп."
+        "💀 Морской разбойник требует выкуп."
     ]
 
     event = random.choice(events)
@@ -315,12 +315,12 @@ for location in locations:
     )
 
     return render_template(
-    "sea.html",
-    player=player,
-    event=event,
-    players_count=players_count,
-    locations=locations
-)
+        "sea.html",
+        player=player,
+        event=event,
+        players_count=players_count,
+        locations=locations
+    )
 
 
 # ---------- Карта ----------

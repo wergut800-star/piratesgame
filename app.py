@@ -354,12 +354,14 @@ else:
     current_bot = None
 
     return render_template(
-        "sea.html",
-        player=player,
-        event=event,
-        players_count=players_count,
-        locations=locations
-    )
+    "sea.html",
+    player=player,
+    event=event,
+    players_count=players_count,
+    locations=locations,
+    current_bot=current_bot,
+    bots=bots
+)
 
 # ---------- Боты Пенной бухты ----------
 

@@ -20,9 +20,11 @@
 
     <div class="player-name">
     {{ player['nickname'] }}
-    {% if player['gender'] == 'female' %}
+
+    {% if player['nickname'] == session['nickname'] %}
         <span class="gender-female">(а)</span>
     {% endif %}
+</div>
 </div>
         <span>Ур. {{ player.level }}</span>
     </div>
